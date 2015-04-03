@@ -20,7 +20,7 @@ try:
     # # interating through the folders of tags
     for root_tag_dir in os.listdir(directory):
         # prevents to get a non directory per mistake
-        if(os.path.isdir(root_tag_dir)):
+        if(os.path.isdir(root_tag_dir)) and "_tags" in root_tag_dir:
             # create a folder to store the analyzed tags if it not exists
             if not os.path.exists(analyzed_folder+"/"+root_tag_dir):
                 subprocess.call(["mkdir", analyzed_folder+"/"+root_tag_dir])
@@ -44,5 +44,5 @@ try:
 except Exception, e:
     time.sleep(10)
     print e
-    start the process again , as sonar could have been failed for no reason. not optmal I think
+    # start the process again , as sonar could have been failed for no reason. not optmal I think
     subprocess.call(["python", "sonar_runner_automator.py"])
