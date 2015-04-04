@@ -12,7 +12,7 @@ try:
     
     analyzed_folder = "../analized_projects"
     if not os.path.exists(analyzed_folder):
-        subprocess.call(["mkdir", analyzed_folder])
+        subprocess.call(["mkdir", analyzed_folder])    
 
     # # get directory name 
     directory = subprocess.check_output(["pwd"]).split()[0]
@@ -24,6 +24,8 @@ try:
             # create a folder to store the analyzed tags if it not exists
             if not os.path.exists(analyzed_folder+"/"+root_tag_dir):
                 subprocess.call(["mkdir", analyzed_folder+"/"+root_tag_dir])
+            if not os.path.exists(analyzed_folder+"/"+root_tag_dir+"_rejected"):
+                subprocess.call(["mkdir", analyzed_folder+"/"+root_tag_dir+"_rejected"])    
             # get all tags 
             all_tags = sorted_ls(root_tag_dir)
             for tag_dir in all_tags:   
@@ -44,5 +46,9 @@ try:
 except Exception, e:
     time.sleep(10)
     print e
+    # create a folder to store the analyzed tags if it not exists
+    if not os.path.exists(analyzed_folder+"/"+root_tag_dir+"_rejected"+"/"+tag_dir):
+        subprocess.call(["mkdir", analyzed_folder+"/"+root_tag_dir+"_rejected"+"/"+tag_dir])
+    os.rename(root_tag_dir+"/"+tag_dir, analyzed_folder+"/"+root_tag_dir+"_rejected"+"/"+tag_dir)
     # start the process again , as sonar could have been failed for no reason. not optmal I think
     subprocess.call(["python", "sonar_runner_automator.py"])
