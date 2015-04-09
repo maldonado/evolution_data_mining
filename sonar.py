@@ -18,7 +18,7 @@ subprocess.call(["mkdir", "../"+project_name+"_tags"])
 # #regex to eliminate folders that is not relevant for the analysis, like third party libraries and invisible files
 file_regex = '\..*|sonar\.py' 
 directory_regex = '\..*|vendor|thirdparty|(:?ex|s)amples|doc(:?s|uments)|bin|node' 
-tags_regex = '(\d\d\d\d\-\d\d\-\d\d)|\(tag:\s([A-Za-z0-9\-\_\.+]*)\)'
+tags_regex = '(\d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d)|\(tag:\s([A-Za-z0-9\-\_\.+]*)\)'
 
 counter = 0
 for line in git_log_result.split('\n'):

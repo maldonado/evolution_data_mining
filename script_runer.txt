@@ -1,0 +1,126 @@
+-- all repositories
+git clone https://github.com/twbs/bootstrap.git
+git clone https://github.com/bower/bower.git
+git clone https://github.com/adobe/brackets.git
+git clone https://github.com/jashkenas/coffeescript.git
+git clone https://github.com/emberjs/ember.js.git
+git clone https://github.com/gruntjs/grunt.git
+git clone https://github.com/less/less.js.git
+git clone https://github.com/mochajs/mocha.git
+git clone https://github.com/Automattic/mongoose.git
+git clone https://github.com/felixge/node-mysql.git
+git clone https://github.com/npm/npm.git
+git clone https://github.com/kriskowal/q.git
+git clone https://github.com/request/request.git
+git clone https://github.com/mozilla/source-map.git
+git clone https://github.com/jashkenas/underscore.git
+
+--- to get commits from github (09-04-2015)
+python request_commits.py twbs bootstrap
+python request_commits.py bower bower
+python request_commits.py adobe brackets
+python request_commits.py jashkenas coffeescript
+python request_commits.py emberjs ember.js
+python request_commits.py gruntjs grunt
+python request_commits.py less less.js
+python request_commits.py mochajs mocha
+python request_commits.py Automattic mongoose
+python request_commits.py felixge node-mysql
+python request_commits.py npm npm
+python request_commits.py kriskowal q
+python request_commits.py request request
+python request_commits.py mozilla source-map
+python request_commits.py jashkenas underscore
+
+--- to insert commit in the database
+python commit_data_parser.py bootstrap
+python commit_data_parser.py bower
+python commit_data_parser.py brackets
+python commit_data_parser.py coffeescript
+python commit_data_parser.py ember.js
+python commit_data_parser.py grunt
+python commit_data_parser.py less.js
+python commit_data_parser.py mocha
+python commit_data_parser.py mongoose
+python commit_data_parser.py node-mysql
+python commit_data_parser.py npm
+python commit_data_parser.py request
+python commit_data_parser.py source-map
+python commit_data_parser.py underscore
+-- remenber to take out node-mysql and request from the folder before running q
+python commit_data_parser.py q
+
+-- commit sanity check
+select count(distinct(commit)) from commits where project_name =  'bootstrap';
+select count(distinct(commit)) from commits where project_name =  'bower';
+select count(distinct(commit)) from commits where project_name =  'brackets';
+select count(distinct(commit)) from commits where project_name =  'coffeescript';
+select count(distinct(commit)) from commits where project_name =  'ember.js';
+select count(distinct(commit)) from commits where project_name =  'grunt';
+select count(distinct(commit)) from commits where project_name =  'less.js';
+select count(distinct(commit)) from commits where project_name =  'mocha';
+select count(distinct(commit)) from commits where project_name =  'mongoose';
+select count(distinct(commit)) from commits where project_name =  'node-mysql';
+select count(distinct(commit)) from commits where project_name =  'npm';
+select count(distinct(commit)) from commits where project_name =  'q';
+select count(distinct(commit)) from commits where project_name =  'request';
+select count(distinct(commit)) from commits where project_name =  'source-map';
+select count(distinct(commit)) from commits where project_name =  'underscore';
+
+--- to get issues from github (09-04-2015)
+python request_issues.py twbs bootstrap
+python request_issues.py bower bower
+python request_issues.py adobe brackets
+python request_issues.py jashkenas coffeescript
+python request_issues.py emberjs ember.js
+python request_issues.py gruntjs grunt
+python request_issues.py less less.js
+python request_issues.py mochajs mocha
+python request_issues.py Automattic mongoose
+python request_issues.py felixge node-mysql
+python request_issues.py npm npm
+python request_issues.py kriskowal q
+python request_issues.py request request
+python request_issues.py mozilla source-map
+python request_issues.py jashkenas underscore
+
+--- to insert issues in the database
+python issue_data_parser.py bootstrap
+python issue_data_parser.py bower
+python issue_data_parser.py brackets
+python issue_data_parser.py coffeescript
+python issue_data_parser.py ember.js
+python issue_data_parser.py grunt
+python issue_data_parser.py less.js
+python issue_data_parser.py mocha
+python issue_data_parser.py mongoose
+python issue_data_parser.py node-mysql
+python issue_data_parser.py npm
+python issue_data_parser.py source-map
+python issue_data_parser.py underscore
+python issue_data_parser.py request
+-- remenber to take out node-mysql and request from the folder before running q
+python issue_data_parser.py q
+
+-- sanity check
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'bootstrap';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'bower';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'brackets';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'coffeescript';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'ember.js';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'grunt';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'less.js';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'mocha';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'mongoose';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'node-mysql';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'npm';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'q';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'request';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'source-map';
+select count(*) from issues where pull_request = 'no_pull_request' and project_name = 'underscore';
+
+
+update issues set closed_at = null where closed_at = '2999-09-09';
+
+-- take the frequency of time that the bugs take to be fixed in javascript projects (improve it with labels)
+select created_at , closed_at, closed_at - created_at as difference , state from issues;
