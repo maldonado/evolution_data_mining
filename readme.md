@@ -1,5 +1,9 @@
 #Data Mining process
 
+*[Clone Github repositories and analyze them in Sonarqube](https://github.com/maldonado/soen691e#sonar-analysis)
+*[Use Github API to extract data](https://github.com/maldonado/soen691e#github-api-data-extraction)
+*[Use different scripts to manipulate data and extract results](https://github.com/maldonado/soen691e#data-transformation-and-analysis)
+
 ## Sonar analysis
 
 ### What it is ?
@@ -82,3 +86,5 @@ $ python issue_data_parser.py bootstrap
 ```
 
 ##Data transformation and analysis
+
+Contains several scripts (python and sql) data extract results and manipulates raw data. The scripts are located in data_transformation folder.
