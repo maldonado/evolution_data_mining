@@ -40,12 +40,14 @@ These scripts uses the Github API to extract information about commits and issue
 ## Requirements
 * Python (virtual environment recommended, requirements.txt provided)
 * Git
-* Valid OAuth token from GitHub, you can find information [here](https://gist.github.com/maldonado/88cd34deef8bff4c9779) about how to create your OAuth token. 
+* Valid GitHub OAuth token, click [here](https://gist.github.com/maldonado/88cd34deef8bff4c9779) for instructions.
 
 If Python or Virtual Environment is not installed you can find instructions [here](http://docs.python-guide.org/en/latest/starting/install/osx/).
 
 ## How to use ?
 (The mentioned scripts below are located in github_data_extraction folder)
+
+### Extracting commits
 
 1. Create a folder to place the extracted commits. 
 2. Edit the request_commits.py script adding the path to the commits folder and your OAuth token.
@@ -53,12 +55,26 @@ If Python or Virtual Environment is not installed you can find instructions [her
 ``` 
 $ python request_commits.py twbs bootstrap
 ```
-4. Create a folder to place the extracted issues. 
-5. Edit the request_issues.py script adding the path to the issues folder and your OAuth token.
-6. Execute request_issues.py passing the user name of the owner of the repository fallowed by the name of the repository. For example, to extract all commits from bootstrap :
+To insert the extracted data into the database:
+4. Edit commit_data_parser.py adding the path to the folder where the json files are. 
+5. Execute commit_data_parser.py passing the name of the project as an argument. 
+``` 
+$ python commit_data_parser.py bootstrap
+```
+
+### Extracting issues
+
+6. Create a folder to place the extracted issues. 
+7. Edit the request_issues.py script adding the path to the issues folder and your OAuth token.
+8. Execute request_issues.py passing the user name of the owner of the repository fallowed by the name of the repository. For example, to extract all commits from bootstrap :
 ``` 
 $ python request_issues.py twbs bootstrap
 ```
-
+To insert the extracted data into the database:
+9. Edit issue_data_parser.py adding the path to the folder where the json files are. 
+10. Execute issue_data_parser.py passing the name of the project as an argument. 
+``` 
+$ python issue_data_parser.py bootstrap
+```
 
 #Data transformation and analysis

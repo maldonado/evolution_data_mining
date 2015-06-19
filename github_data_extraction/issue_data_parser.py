@@ -13,17 +13,20 @@ project_name  = sys.argv[1]
 try:
     
     #connect to the database to retrieve the file name linked with the commit
-    connection = psycopg2.connect(host='cranberry', port='5432', database='re', user='re', password='re')
+    # localhost:5432
+    connection = psycopg2.connect(host='<your_host>', port='<your_host_port>', database='', user='', password='')
     cursor = connection.cursor()
     
-    # drop table to store commit data if it does not exists
-    # cursor.execute("drop table if exists issues")
-    #create table
-    # cursor.execute("create table issues (project_name text, bug_id numeric, bug_number numeric, title text, pull_request text,  user_id numeric, user_login text, state text, locked boolean, assignee_id numeric, assignee_login text, comment_count numeric, created_at timestamp without time zone, updated_at timestamp without time zone, closed_at timestamp without time zone, body text, labels text)")
+    # Prepare database
+    drop table to store commit data if it does not exists
+    cursor.execute("drop table if exists issues")
+    create table
+    cursor.execute("create table issues (project_name text, bug_id numeric, bug_number numeric, title text, pull_request text,  user_id numeric, user_login text, state text, locked boolean, assignee_id numeric, assignee_login text, comment_count numeric, created_at timestamp without time zone, updated_at timestamp without time zone, closed_at timestamp without time zone, body text, labels text)")
     
 
     # concat path to the commit file
-    path = "/Users/evermal/Documents/soen691E/course_project/issues/"
+    # path = "/Users/evermal/Documents/soen691E/course_project/issues/"
+    path = "<fully qualified path to your files>"
 
     for root, dirs, files in os.walk(path):
         for f in files:
