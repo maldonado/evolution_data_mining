@@ -8,23 +8,57 @@ The tags will be analyzed in chronological order into Sonarqube. The date of the
 
 ## Requirements
 
-1. Python (virtual environment recommended, requirements.txt provided)
-2. Git
-3. Configured Sonarqube
-4. Configured Sonar runner
+* Python (virtual environment recommended, requirements.txt provided)
+* Git
+* Configured Sonarqube
+* Configured Sonar runner
+
+If Python or Virtual Environment is not installed you can find instructions [here](http://docs.python-guide.org/en/latest/starting/install/osx/).
 
 ## How to use ?
+(The mentioned scripts below are located in sonar_analysis folder)
 
 1. Create a folder with all cloned repositories that you want to analyze.
-2. Put a copy of run_git_tags.sh in this folder.
-3. Put a copy of sonar_runner_automator.py in this folder. 
+2. Put a copy of run_git_tags.sh in the created folder .
+3. Put a copy of sonar_runner_automator.py in the created folder. 
 4. For each repository in this folder put a copy of sonar.py in its root folder.
-<<<<<<< HEAD
-5. Execute run_git_tags.sh. In the terminal paste the following line (without the `$`)
-```
-    $ ./run_git_tags.sh
+5. Execute run_git_tags.sh. In the terminal paste the following line (without the `$`).
+``` 
+$ ./run_git_tags.sh 
 ```
 6. Execute sonar_runner_automator.py. In the terminal paste the following line (without the `$`). 
+``` 
+$ python sonar_runner_automator.py 
 ```
-    $ python sonar_runner_automator.py
+
+# Github API Data Extraction
+
+## What it is ?
+
+These scripts uses the Github API to extract information about commits and issues. First, it requests the issues/commits from github and store the response in a json file. One project can have several files as response of this process because Github API provides this data paginated. Second, it reads the json files in your local machine and stores it in a database for further analysis. 
+
+## Requirements
+* Python (virtual environment recommended, requirements.txt provided)
+* Git
+* Valid OAuth token from GitHub, you can find information [here](https://gist.github.com/maldonado/88cd34deef8bff4c9779) about how to create your OAuth token. 
+
+If Python or Virtual Environment is not installed you can find instructions [here](http://docs.python-guide.org/en/latest/starting/install/osx/).
+
+## How to use ?
+(The mentioned scripts below are located in github_data_extraction folder)
+
+1. Create a folder to place the extracted commits. 
+2. Edit the request_commits.py script adding the path to the commits folder and your OAuth token.
+3. Execute request_commits.py passing the user name of the owner of the repository fallowed by the name of the repository. For example, to extract all commits from bootstrap :
+``` 
+$ python request_commits.py twbs bootstrap
 ```
+4. Create a folder to place the extracted issues. 
+5. Edit the request_issues.py script adding the path to the issues folder and your OAuth token.
+6. Execute request_issues.py passing the user name of the owner of the repository fallowed by the name of the repository. For example, to extract all commits from bootstrap :
+``` 
+$ python request_issues.py twbs bootstrap
+```
+
+
+#Data transformation and analysis
