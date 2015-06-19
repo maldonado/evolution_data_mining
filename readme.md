@@ -1,12 +1,14 @@
-# Sonar analysis
+#Data Mining process
 
-## What it is ?
+## Sonar analysis
+
+### What it is ?
 
 These scripts were built to extract all the tags from cloned git repositories, and analyze them into Sonarqube. First, it extracts all tags from a project in chronological order (oldest to latest). Second, it removes third part libraries using regular expressions. Third, it creates the sonar properties file used by Sonar Runner. 
 
 The tags will be analyzed in chronological order into Sonarqube. The date of the analysis will be the same date of the tag, so will be possible to observe the nuances of the project over time. However, if there are two or more tags in the same day only the first one will be analyzed in Sonarqube. The process will create separated folders for the tags processed with success and the ones rejected for each project. If you need to stop sonar_runner_automator.py process it will resume from the point that it was interrupted.
 
-## Requirements
+### Requirements
 
 * Python (virtual environment recommended, requirements.txt provided)
 * Git
@@ -15,7 +17,7 @@ The tags will be analyzed in chronological order into Sonarqube. The date of the
 
 If Python or Virtual Environment is not installed you can find instructions [here](http://docs.python-guide.org/en/latest/starting/install/osx/).
 
-## How to use ?
+### How to use ?
 (The mentioned scripts below are located in sonar_analysis folder)
 
 1. Create a folder with all cloned repositories that you want to analyze.
@@ -31,23 +33,23 @@ $ ./run_git_tags.sh
 $ python sonar_runner_automator.py 
 ```
 
-# Github API Data Extraction
+## Github API Data Extraction
 
-## What it is ?
+### What it is ?
 
 These scripts uses the Github API to extract information about commits and issues. First, it requests the issues/commits from github and store the response in a json file. One project can have several files as response of this process because Github API provides this data paginated. Second, it reads the json files in your local machine and stores it in a database for further analysis. 
 
-## Requirements
+### Requirements
 * Python (virtual environment recommended, requirements.txt provided)
 * Git
 * Valid GitHub OAuth token, click [here](https://gist.github.com/maldonado/88cd34deef8bff4c9779) for instructions.
 
 If Python or Virtual Environment is not installed you can find instructions [here](http://docs.python-guide.org/en/latest/starting/install/osx/).
 
-## How to use ?
+### How to use ?
 (The mentioned scripts below are located in github_data_extraction folder)
 
-### Extracting commits
+#### Extracting commits
 
 1. Create a folder to place the extracted commits. 
 2. Edit the request_commits.py script adding the path to the commits folder and your OAuth token.
@@ -56,13 +58,14 @@ If Python or Virtual Environment is not installed you can find instructions [her
 $ python request_commits.py twbs bootstrap
 ```
 To insert the extracted data into the database:
-4. Edit commit_data_parser.py adding the path to the folder where the json files are. 
-5. Execute commit_data_parser.py passing the name of the project as an argument. 
+
+1. Edit commit_data_parser.py adding the path to the folder where the json files are. 
+2. Execute commit_data_parser.py passing the name of the project as an argument. 
 ``` 
 $ python commit_data_parser.py bootstrap
 ```
 
-### Extracting issues
+#### Extracting issues
 
 6. Create a folder to place the extracted issues. 
 7. Edit the request_issues.py script adding the path to the issues folder and your OAuth token.
@@ -71,10 +74,11 @@ $ python commit_data_parser.py bootstrap
 $ python request_issues.py twbs bootstrap
 ```
 To insert the extracted data into the database:
-9. Edit issue_data_parser.py adding the path to the folder where the json files are. 
-10. Execute issue_data_parser.py passing the name of the project as an argument. 
+
+1. Edit issue_data_parser.py adding the path to the folder where the json files are. 
+2. Execute issue_data_parser.py passing the name of the project as an argument. 
 ``` 
 $ python issue_data_parser.py bootstrap
 ```
 
-#Data transformation and analysis
+##Data transformation and analysis
