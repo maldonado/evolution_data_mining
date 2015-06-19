@@ -1,8 +1,8 @@
 #Data Mining process
 
-*[Clone Github repositories and analyze them in Sonarqube](https://github.com/maldonado/soen691e#sonar-analysis)
-*[Use Github API to extract data](https://github.com/maldonado/soen691e#github-api-data-extraction)
-*[Use different scripts to manipulate data and extract results](https://github.com/maldonado/soen691e#data-transformation-and-analysis)
+* [Clone Github repositories and analyze them in Sonarqube](https://github.com/maldonado/soen691e#sonar-analysis)
+* [Use Github API to extract data](https://github.com/maldonado/soen691e#github-api-data-extraction)
+* [Use different scripts to manipulate data and extract results](https://github.com/maldonado/soen691e#data-transformation-and-analysis)
 
 ## Sonar analysis
 
