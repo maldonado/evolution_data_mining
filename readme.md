@@ -19,10 +19,12 @@ The tags will be analyzed in chronological order into Sonarqube. The date of the
 2. Put a copy of run_git_tags.sh in this folder.
 3. Put a copy of sonar_runner_automator.py in this folder. 
 4. For each repository in this folder put a copy of sonar.py in its root folder.
+<<<<<<< HEAD
 5. Execute run_git_tags.sh. In the terminal paste the following line (without the `$`)
-
+```
     $ ./run_git_tags.sh
-
+```
 6. Execute sonar_runner_automator.py. In the terminal paste the following line (without the `$`). 
-    
+```
     $ python sonar_runner_automator.py
+```
