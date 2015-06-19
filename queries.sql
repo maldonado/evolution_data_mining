@@ -235,3 +235,69 @@ select * from release_density where number_of_releases != 0 and project_name in 
 alter table issues add column version text
 --then run python script for linking issues
 select a.project_name, a.release_date, count(*) from metrics_data a, issues b where a.project_name = b.project_name and a.version = b.version group by 1,2
+
+-- interval between created date and closed date
+select project_name ,  EXTRACT(epoch from (closed_at - created_at)) from issues  where  closed_at is not null;
+
+-- generate table with metrics results
+-- first version
+
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-04-12' and project_name='coffeescript';
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-01-29' and project_name='coffeescript';
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-04-22' and project_name='less.js'     ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-01-28' and project_name='less.js'     ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-05-02' and project_name='npm'         ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-20' and project_name='npm'         ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-05-14' and project_name='mongoose'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-28' and project_name='mongoose'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-06-14' and project_name='underscore'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-02-19' and project_name='underscore'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-08-22' and project_name='node-mysql'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-24' and project_name='node-mysql'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2010-09-16' and project_name='q'           ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2014-11-22' and project_name='q'           ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-01-30' and project_name='request'     ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-24' and project_name='request'     ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-06-17' and project_name='ember.js'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-08' and project_name='ember.js'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-09-08' and project_name='source-map'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-02' and project_name='source-map'  ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-09-16' and project_name='bootstrap'   ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-01-19' and project_name='bootstrap'   ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-11-08' and project_name='mocha'       ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-06' and project_name='mocha'       ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2011-12-21' and project_name='brackets'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-02-11' and project_name='brackets'    ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2012-09-16' and project_name='bower'       ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2015-03-30' and project_name='bower'       ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2013-02-18' and project_name='grunt'       ; 
+select blocker_issues, critical_issues, major_issues, minor_issues, (issues - blocker_issues - critical_issues - major_issues - minor_issues) as info_issues from metrics_data where release_date = '2014-03-12' and project_name='grunt'       ; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ect_name='grunt'       ;
+ blocker_issues | critical_issues | major_issues | minor_issues | info_issues
+----------------+-----------------+--------------+--------------+-------------
+            123 |               0 |          137 |           11 |          28
+
+             blocker_issues | critical_issues | major_issues | minor_issues | info_issues
+----------------+-----------------+--------------+--------------+-------------
+            142 |               0 |          155 |           10 |          26
+
+
+
+
+
