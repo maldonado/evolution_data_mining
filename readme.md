@@ -18,10 +18,14 @@ These scripts were built to extract all the tags from cloned git repositories, a
 3. Put a copy of sonar_runner_automator.py in this folder. 
 4. For each repository in this folder put a copy of sonar.py in its root folder.
 5. Execute run_git_tags.sh.
+```
     $ ./run_git_tags.sh
-6. Execute sonar_runner_automator.py. 
-    $ python sonar_runner_automator.py
+```
 
+6. Execute sonar_runner_automator.py. 
+```
+    $ python sonar_runner_automator.py
+```
 
 
 
