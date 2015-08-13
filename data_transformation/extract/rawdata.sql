@@ -3,40 +3,11 @@ drop table rawdata
 CREATE TABLE rawdata (
 	project_name text,
 	version text,
-	date text,
-	lines_of_codes text,
-	complexity text,
-	comment_lines_density_percent text, 
-duplicated_lines_density text,
-	issues text,
-	complexity_file text, 
-	complexity_function text, 
-	comment_lines text, 
-	duplicate_block text, 
-	blocker_issues text, 
-	critical_issues text, 
-	major_issues text, 
-	minor_issues text, 
-	directories text, 
-	functions text,
-	statements text,
-	SQALE text, 
-	technical_debt text, 
-	technical_debt_ratio text
-)
-
------- Summary table
-
-drop table rawdata
-
-CREATE TABLE rawdata (
-	project_name text,
-	version text,
 	release_date date,
-	lines_of_codes numeric,
+	lines_of_code numeric,
 	complexity numeric,
 	comment_lines_density_percent numeric, 
-duplicated_lines_density numeric,
+    duplicated_lines_density numeric,
 	issues numeric,
 	complexity_file numeric, 
 	complexity_function numeric, 
@@ -51,7 +22,7 @@ duplicated_lines_density numeric,
 	statements numeric,
 	SQALE text, 
 	technical_debt text, 
-	technical_debt_ratio text
+	technical_debt_ratio numeric
 )
 
 
@@ -62,9 +33,14 @@ select technical_debt, (coalesce((cast(replace(substring(technical_debt from '(^
 
 // for date 
 
-select project_name,version,to_date(date,'DD Mon YYYY') as release_date,lines_of_codes, complexity,
-replace(comment_lines_density_percent,'%',''),
-replace(duplicated_lines_density,'%',''),
+select 
+project_name,
+version,
+release_date,
+lines_of_code, 
+complexity,
+comment_lines_density_percent,
+duplicated_lines_density,
 issues,
 complexity_file,
 complexity_function,
@@ -81,7 +57,7 @@ SQALE
  from rawdata 
 where date NOT LIKE 'date' and 
 complexity ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and 
-lines_of_codes ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and
+lines_of_code ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and
 replace(comment_lines_density_percent,'%','') ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and
 replace(duplicated_lines_density,'%','') ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and
 issues ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' and

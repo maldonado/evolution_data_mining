@@ -57,6 +57,7 @@ for line in git_log_result.split('\n'):
                         shutil.rmtree(os.path.join(root, d))
                         
             # create sonar-project.properties file 
+            
             f = open(folder_path + "/sonar-project.properties", "wb")
             f.write("# Required metadata\n")
             
