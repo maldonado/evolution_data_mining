@@ -106,3 +106,37 @@ INSERT INTO metrics_data (
 	technical_debt_ratio
  	from rawdata 
 
+--commit table
+drop table commits
+
+CREATE TABLE commits (
+	project_name text,
+	version text,
+	commit_hash text,
+	author_name text,
+	author_date_unix_timestamp numeric,
+	author_email text,
+	author_date date,
+	commit_message text,
+	fix text,
+	classification text, 
+	linked text, 
+	contains_bug text, 
+	fixes text, 
+	ns numeric,
+	nd numeric,
+	nf numeric,
+	entrophy numeric,
+	la numeric,
+	ld numeric,
+	fileschanged text,
+	lt numeric,
+	ndev numeric,
+	age numeric, 
+	nuc numeric,
+	exp numeric,
+	rexp numeric,
+	sexp numeric,
+	glm_probability numeric,
+	repository_id text
+); 
