@@ -8,12 +8,17 @@ import sys
 
 connection = None
 tags_regex = '(\d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d)|\(tag:\s([A-Za-z0-9\-\_\.+]*)\)'
+commit_regex = '([0-9a-z]{40})\s(.*)'
 
 try:
-    
-    # #connect to the database to retrieve the file name linked with the commit
-    # connection = psycopg2.connect(host='localhost', port='5432', database='jsevolution', user='evermal', password='')
-    # cursor = connection.cursor()
+
+    # # get directory name and project name to create folders dynamically
+    directory = subprocess.check_output(["pwd"]).split()[0]
+    project_name = directory.split('/')[-1]
+
+    #connect to the database to retrieve the file name linked with the commit
+    connection = psycopg2.connect(host='localhost', port='5432', database='jsevolution', user='evermal', password='')
+    cursor = connection.cursor()
 
     # get all tags from the git repository in order and with date
     git_log_result = subprocess.check_output(["git", "log", "--tags", "--date-order",  "--reverse",  "--simplify-by-decoration", "--pretty=%ai %d"])
@@ -25,6 +30,7 @@ try:
         # for each line has matches
         if re.search(tags_regex, line) is not None:
             m = re.findall(tags_regex, line)
+            
             # has match fot tag and date (merge has date but not tag)
             if len(m) == 2:
                 # get result from the first tuple, first item (date)
@@ -36,40 +42,27 @@ try:
                 if counter == 0:
                     tag_commits = subprocess.check_output(["git", "log", "--pretty=oneline", tag])
                     counter = counter + 1
+                    for commit_line in tag_commits.split('\n'):
+                        match = re.search(commit_regex, commit_line)
+                        if match:
+                            commit_id = match.group(1)
+                            cursor.execute("insert into commits (project_name, version, commit_hash) values ('"+project_name+"','"+tag+"','"+commit_id+"')")
+
                 else:
-                    tag_commits = subprocess.check_output(["git", "log", "--pretty=oneline", previous_tag, "...",  tag])
+                    tag_commits = subprocess.check_output(["git", "log", "--pretty=oneline", previous_tag + "..." +  tag])
+                    for commit_line in tag_commits.split('\n'):
+                        match = re.search(commit_regex, commit_line)
+                        if match:
+                            commit_id = match.group(1)
+                            cursor.execute("insert into commits (project_name, version, commit_hash) values ('"+project_name+"','"+tag+"','"+commit_id+"')")
+                            
 
-
-                print "************************************************"
-                print tag_commits
-    
-    
-    # cursor.execute('select project_name, version, release_date from metrics_data order by 1,3')
-    # metrics_data = cursor.fetchall()
-
-    # counter = 0
-    # total = len(metrics_data)
-    # for row in metrics_data:
-    #     counter = counter +1
-    #     project_name = row[0]
-    #     version = row[1]
-    #     release_date = row[2]
-
-
-    #     cursor.execute("select commit from commits where author_dt <= '"+str(release_date)+"' and project_name = '"+project_name+"' and version is null")
-    #     commits_from_this_version = cursor.fetchall();
-    #     print len(commits_from_this_version)
-    #     for commit_row in commits_from_this_version:
-    #         commit = commit_row[0]
-    #         cursor.execute("update commits set version='"+version+"' where commit='"+commit+"'")
-
-    #     print str(counter)+"of: "+str(total)    
-                   
+                  
 except Exception, e:
-    # print  e
-    # connection.rollback()
-    pass
+    print  e
+    connection.rollback()
+    
 
 finally:
-    # connection.commit()
-    pass
+    connection.commit()
+    
