@@ -14,13 +14,13 @@ try:
     connection = psycopg2.connect(host='localhost', port='5432', database='jsevolution', user='evermal', password='')
     cursor = connection.cursor()
 
-    with open('./commit_guru_csv/6cbba797-ea90-44a9-8e1d-05352347222c.csv', 'rb') as csv_file:
+    with open('./commit_guru_csv/acorn.csv', 'rb') as csv_file:
         reader = csv.DictReader(csv_file)
         for row in reader:
             if row['commit_hash']:
                 commit_hash = row['commit_hash']
             if row['author_name']:
-                author_name = row['author_name']
+                author_name = row['author_name'].replace('\'', '')
             if row['author_date_unix_timestamp']:
                 author_date_unix_timestamp = row['author_date_unix_timestamp']
             if row['author_email']:
@@ -28,7 +28,7 @@ try:
             if row['author_date']:
                 author_date = row['author_date']
             if row['commit_message']:
-                commit_message = row['commit_message']
+                commit_message = row['commit_message'].replace('\'', '')
             if row['fix']:
                 fix = row['fix']
             if row['classification']:
