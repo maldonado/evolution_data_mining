@@ -140,3 +140,110 @@ CREATE TABLE commits (
 	glm_probability numeric,
 	repository_id text
 ); 
+
+-- number of commits like bug fixes 
+-- step1
+drop table if exists number_of_corrective_changes;
+CREATE TABLE number_of_corrective_changes (
+  project_name text NOT NULL,
+  version text,
+  author_date date,
+  number_of_corrections numeric default 0 
+);
+-- step2
+insert into number_of_corrective_changes (project_name, version, author_date, number_of_corrections)
+    select project_name, version, author_date, count(*) from commits  where classification like 'Corrective' group by 1,2,3 order by 1,3;
+
+-- result
+select * from number_of_corrective_changes where project_name like 'node-mongodb-native' order by 2,3;
+
+-- number of commits like feature
+-- step1
+drop table if exists number_of_feature_addition_changes;
+CREATE TABLE number_of_feature_addition_changes (
+  project_name text NOT NULL,
+  version text,
+  author_date date,
+  number_of_feature_addition numeric default 0
+);
+-- step2
+insert into number_of_feature_addition_changes (project_name, version, author_date, number_of_feature_addition)
+    select project_name, version, author_date, count(*) from commits  where classification like 'Feature Addition' group by 1,2,3 order by 1,3;
+
+-- results
+select * from number_of_feature_addition_changes where project_name like 'node-mongodb-native' order by 2,3;
+
+-- spread  of changes per version 
+-- step1
+drop table if exists number_of_file_changes_per_version;
+CREATE TABLE number_of_file_changes_per_version (
+  project_name text NOT NULL,
+  version text,
+  author_date date,
+  classification text, 
+  commit_hash text, 
+  file_list text,
+  number_of_files_changed numeric default 0
+);
+-- step2
+insert into number_of_file_changes_per_version (project_name, version, author_date, classification, commit_hash, file_list)
+    select project_name, version, author_date, classification, commit_hash, fileschanged from commits where author_date is not null order by 1,2,3;
+-- step3
+-- run script 6_calculate_number_of_files_changed.py
+
+-- results
+select number_of_files_changed from number_of_file_changes_per_version where project_name like 'Chart.js' order by 2,3;
+
+-- Calculating release density
+
+-- step 1 
+drop table if exists release_density
+create table release_density (
+	project_name text, 
+	date_group date, 
+	number_of_releases numeric
+);
+
+-- step 2
+-- run script 7_function_density_time_frame.py
+
+
+-- Calculating commits density
+
+-- step 1 
+drop table if exists commit_density
+create table commit_density (
+	project_name text, 
+	date_group date, 
+	number_of_commits numeric
+);
+
+-- step 2
+-- run script 8_commit_density_time_frame.py
+
+-- churn per bug fix
+-- step1
+
+drop table if exists churn_of_corrective_changes;
+CREATE TABLE churn_of_corrective_changes (
+  project_name text NOT NULL,
+  version text,
+  author_date date,
+  classification text, 
+  commit_hash text, 
+  number_of_files_changed numeric,
+  lines_added numeric,
+  lines_deleted numeric,
+  churn numeric
+);
+
+-- step2
+insert into churn_of_corrective_changes (project_name, version, author_date, classification, commit_hash, lines_added, lines_deleted)
+    select project_name, version, author_date, classification, commit_hash, la, ld from commits where author_date is not null order by 1,2,3;
+
+-- step3
+-- run script 9_calculate_churn_of_corrective_changes.py
+
+-- results
+select churn from churn_of_corrective_changes where project_name like 'Chart.js';
+

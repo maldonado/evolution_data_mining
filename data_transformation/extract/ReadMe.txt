@@ -12,3 +12,14 @@ Remember to use nvm (node version management) for using all the things related t
 10 - link the commits and versions executing 4_link_version_commit.py
 11 - download the csv file from commit guru and paste it in: evolution_data_mining/data_transformation/extract/commit_guru_csv
 12 - put the csv file name in the script 5_import_commit_guru_data.py and execute it.
+
+
+Continuing change: Number of commits (like bug fixes), Interface Changes
+
+Increasing complexity: Evolution of complexity
+
+Continuing Growth: LOC , Release Density, Number of Commits, Feature additions
+
+Declining Quality: Churn to fix a bug, Spread of changes (From commit guru),  Code Smells reported by SonarQube (Or find bugs)
+
+Comparison table  (prior work vs java vs JavaScript)
