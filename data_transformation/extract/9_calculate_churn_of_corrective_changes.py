@@ -16,7 +16,7 @@ try:
         project_name = project_data[0]
         print project_name
 
-        cursor.execute("select a.commit_hash, b.fileschanged, a.lines_added, a.lines_deleted from churn_of_corrective_changes a , commits b  where a.commit_hash = b.commit_hash and a.project_name='"+project_name+"'")
+        cursor.execute("select distinct(a.commit_hash), b.fileschanged, a.lines_added, a.lines_deleted from churn_of_corrective_changes a , commits b  where a.commit_hash = b.commit_hash and a.project_name='"+project_name+"'")
         results = cursor.fetchall()
 
         for result in results:
